@@ -1,0 +1,7 @@
+✓ Fix TodoItem tests.
+✓ Fix TodoList tests.
+✓ Add tests to NewTodo.
+✓ Add tests to App.
+✓ Move reducer tests over.
+✓ Add Redux Definer.
+- Go about async actions.
