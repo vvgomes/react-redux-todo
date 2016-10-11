@@ -23,7 +23,7 @@ describe("App", () => {
     const app = shallow(<App state={state} actions={actions} />);
     const todoList = app.find(".app").find(TodoList) ;
 
-    expect(todoList).to.have.lengthOf(1);
+    expect(todoList).lengthOf(1);
     expect(todoList.prop("todos")).eq(state.todos);
     expect(todoList.prop("toggle")).eq(actions.toggleTodo);
   });
