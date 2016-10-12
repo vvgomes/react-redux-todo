@@ -4,5 +4,5 @@
 ✓ Add tests to App.
 ✓ Move reducer tests over.
 ✓ Add Redux Definer.
-- Enhance NewTodo callback test.
+✓ Enhance NewTodo callback test.
 - Go about async actions.
