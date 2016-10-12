@@ -4,7 +4,7 @@ import { defineReducer } from "redux-definer";
 import { connect, Provider } from "react-redux";
 import { render } from "react-dom";
 import { objOf, compose } from "ramda";
-import { composeAll } from "./util/compose.all";
+import { composeEach } from "./util/compose.each";
 import * as actionHandlers from "./action.handlers";
 import * as actionCreators from "./action.creators";
 import App from "./components/app";
@@ -29,7 +29,7 @@ const store = createStore(reducer, fakeState);
 store.subscribe(() => console.log("Beep!"));
 
 const mapStateToProps = objOf("state");
-const mapDispatchToProps = compose(objOf("actions"), composeAll(actionCreators));
+const mapDispatchToProps = compose(objOf("actions"), composeEach(actionCreators));
 
 const ConnectedApp = connect(
   mapStateToProps,
