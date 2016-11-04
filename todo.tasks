@@ -9,7 +9,7 @@
 ✓ Test drive the new actions.
 ✓ Reflect the new states in the UI.
 ✓ Create errors component.
-- Display errors.
+✓ Display errors.
 - Remove erros as part of successful remote actions.
 - Extract error item component. (to make dismiss simpler.)
 - Dismiss errors.

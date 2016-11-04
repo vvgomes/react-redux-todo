@@ -2,6 +2,7 @@ import React from "react";
 import App from "../../src/components/app";
 import TodoList from "../../src/components/todo.list";
 import NewTodo from "../../src/components/new.todo";
+import ErrorList from "../../src/components/error.list";
 import { shallow } from "enzyme";
 import { expect } from "chai";
 import { identity } from "ramda";
@@ -11,6 +12,10 @@ describe("App", () => {
     todos: [
       { id: "1", text:"wash dishes", completed: true },
       { id: "2", text: "walk the dog", completed: false }
+    ],
+    errors: [
+      "Text description must be present.",
+      "Text description must be unique."
     ]
   };
 
@@ -33,5 +38,13 @@ describe("App", () => {
     const newTodo = app.find(".app").find(NewTodo);
 
     expect(newTodo.prop("add")).eq(actions.addTodo);
+  });
+
+  it("renders error list", () => {
+    const app = shallow(<App state={state} actions={actions} />);
+    const errorList = app.find(".app").find(ErrorList) ;
+
+    expect(errorList).lengthOf(1);
+    expect(errorList.prop("errors")).eq(state.errors);
   });
 });
