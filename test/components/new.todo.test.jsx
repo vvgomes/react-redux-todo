@@ -5,7 +5,7 @@ import { expect } from "chai";
 import { spy } from "sinon";
 import { identity, always, keys } from "ramda";
 
-describe("TodoItem", () => {
+describe("NewTodo", () => {
   const fakeStore = {
     dispatch: identity,
     getState: always({}),
@@ -39,6 +39,6 @@ describe("TodoItem", () => {
     input.get(0).value = "foo";
     form.simulate("submit");
 
-    expect(add.calledWith({ id: "foo", text: "foo" })).ok;
+    expect(add.calledWith({ text: "foo" })).ok;
   });
 });

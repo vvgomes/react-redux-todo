@@ -5,4 +5,12 @@
 ✓ Move reducer tests over.
 ✓ Add Redux Definer.
 ✓ Enhance NewTodo callback test.
-- Go about async actions.
+✓ Go about async actions.
+✓ Test drive the new actions.
+✓ Reflect the new states in the UI.
+- Create error component.
+- Display errors.
+- Remove erros as part of successful remote actions.
+- Dismiss errors.
+- Compose components.
+- Add some style to the thing.

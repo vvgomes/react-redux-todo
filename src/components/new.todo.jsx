@@ -7,12 +7,11 @@ const NewTodo = ({ add }) => {
 
   return (
     <form className="new-todo" onSubmit={
-      pipe(
-        tap(event => event.preventDefault()),
-        () => ({ id: input.value, text: input.value }),
-        add,
-        tap(() => input.value = "") 
-      )
+      event => {
+        event.preventDefault();
+        add({ text: input.value });
+        input.value = "";
+      }
     }>
       <input type="text" name="new-todo-text" ref={node => { input = node; }} />
       <button type="submit">+</button>

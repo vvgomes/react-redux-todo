@@ -1,28 +1,28 @@
-import { addTodo, toggleTodo } from "../src/action.creators";
+import { presentTodos, presentErrors } from "../src/action.creators";
 import { expect } from "chai";
 
 describe("actionCreators{}", () => {
-  describe("addTodo()", () => {
-    const action = addTodo({ text: "wash dishes" });
+  describe("presentTodos()", () => {
+    const action = presentTodos([{ id: "1", text: "wash dishes" }]);
 
     it("has action type", () => {
-      expect(action).property("type", "addTodo");
+      expect(action.type).eq("presentTodos");
     });
 
-    it("has todo data", () => {
-      expect(action).deep.property("todo.text", "wash dishes");
+    it("has a list of todo items", () => {
+      expect(action.todos).deep.eq([{ id: "1", text: "wash dishes" }]);
     });
   });
 
-  describe("toggleTodo()", () => {
-    const action = toggleTodo({ id: "666" });
+  describe("presentErrors()", () => {
+    const action = presentErrors(["Unable to connect to server."]);
 
     it("has action type", () => {
-      expect(action).property("type", "toggleTodo");
+      expect(action.type).eq("presentErrors");
     });
 
-    it("has todo data", () => {
-      expect(action).deep.property("todo.id", "666");
+    it("has a list of errors", () => {
+      expect(action.errors).deep.eq(["Unable to connect to server."]);
     });
   });
 });

@@ -1,35 +1,26 @@
 import React from "react";
-import { createStore } from "redux";
+import { render } from "react-dom";
+import { createStore, applyMiddleware } from "redux";
 import { defineReducer } from "redux-definer";
 import { connect, Provider } from "react-redux";
-import { render } from "react-dom";
-import { objOf, compose } from "ramda";
-import { composeEach } from "./util/compose.each";
-import * as actionHandlers from "./action.handlers";
-import * as actionCreators from "./action.creators";
+import thunkMiddleware from "redux-thunk";
+import defineThunks from "./action.thunks";
+import * as handlers from "./action.handlers";
 import App from "./components/app";
+import { map, compose } from "ramda";
 
-const fakeState = {
-  todos: [
-    {
-      id: "1",
-      text:"wash dishes",
-      completed: true
-    },
-    {
-      id: "2",
-      text: "walk the dog",
-      completed: false
-    }
-  ]
-};
+const thunks = defineThunks();
+const reducer = defineReducer(handlers);
+const initialState = { todos: [], errors: [] };
+const store = createStore(reducer, initialState, applyMiddleware(thunkMiddleware));
 
-const reducer = defineReducer(actionHandlers);
-const store = createStore(reducer, fakeState);
 store.subscribe(() => console.log("Beep!"));
+store.dispatch(thunks.reloadTodos());
 
-const mapStateToProps = objOf("state");
-const mapDispatchToProps = compose(objOf("actions"), composeEach(actionCreators));
+const mapStateToProps = state => ({ state });
+const mapDispatchToProps = dispatch => ({
+  actions: map(thunk => compose(dispatch, thunk), thunks)
+});
 
 const ConnectedApp = connect(
   mapStateToProps,

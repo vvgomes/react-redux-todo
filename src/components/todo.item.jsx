@@ -10,7 +10,7 @@ const TodoItem = ({ todo, toggle }) => (
     />
     <label
       htmlFor="#{todo.id}"
-      style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}
+      style={{ textDecoration: todo.completed ? "line-through" : "none" }}
     >
       {todo.text}
     </label>

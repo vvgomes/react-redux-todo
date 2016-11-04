@@ -1,8 +1,8 @@
-export const addTodo = todo => (
-  { type: "addTodo", todo }
+export const presentTodos = todos => (
+  { type: "presentTodos", todos }
 );
 
-export const toggleTodo = todo => (
-  { type: "toggleTodo", todo }
+export const presentErrors = errors => (
+  { type: "presentErrors", errors }
 );
 

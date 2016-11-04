@@ -1,19 +1,13 @@
-import { evolve, append, map, when, propEq, not } from "ramda";
+import { evolve, always, identity } from "ramda";
 
-export const addTodo = (state, action) =>
+export const presentTodos = (state, action) =>
   evolve({
-    todos: append({
-      id: action.todo.id,
-      text: action.todo.text,
-      completed: false
-    })
+    todos: always(action.todos),
+    errors: identity
   })(state);
 
-
-export const toggleTodo = (state, action) =>
+export const presentErrors = (state, action) =>
   evolve({
-    todos: map(when(
-      propEq("id", action.todo.id),
-      evolve({ completed: not })
-    ))
+    todos: identity,
+    errors: always(action.errors)
   })(state);
