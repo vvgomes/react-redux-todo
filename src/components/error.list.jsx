@@ -7,7 +7,7 @@ const ErrorList = ({ errors }) => (
       map(error =>
         <li>
           <span className="error">
-            error
+            {error}
           </span>
         </li>
       )(errors)
