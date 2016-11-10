@@ -10,6 +10,8 @@
 ✓ Reflect the new states in the UI.
 ✓ Create errors component.
 ✓ Display errors.
+✓ Handle failures correctly in the API client.
+✓ Fix the tests.
 - Remove erros as part of successful remote actions.
 - Extract error item component. (to make dismiss simpler.)
 - Dismiss errors.

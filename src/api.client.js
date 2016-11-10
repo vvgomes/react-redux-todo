@@ -1,4 +1,5 @@
 import defaultFetch from "isomorphic-fetch";
+import { contains } from "ramda";
 
 const createApiClient = (fetch = defaultFetch) => {
   const payload = data => ({
@@ -10,14 +11,27 @@ const createApiClient = (fetch = defaultFetch) => {
     body: JSON.stringify(data)
   });
 
-  const addTodo = todo =>
-    fetch("/api/actions", payload({ type: "addTodo", todo }));
+  const isSuccess = res =>
+    contains(res.status)([200, 202])
 
-  const toggleTodo = todo =>
-    fetch("/api/actions", payload({ type: "toggleTodo", todo }));
+  const handleResponse = res => 
+    res.json().then(data => {
+      if (isSuccess(res))
+        return data;
+      else
+        throw data;
+    });
 
   const fetchState = () =>
-    fetch("/api/state").then(res => res.json());
+    fetch("/api/state").then(handleResponse);
+
+  const addTodo = todo =>
+    fetch("/api/actions", payload({ type: "addTodo", todo }))
+      .then(handleResponse);
+
+  const toggleTodo = todo =>
+    fetch("/api/actions", payload({ type: "toggleTodo", todo }))
+      .then(handleResponse);
 
   return { fetchState, addTodo, toggleTodo };
 };
