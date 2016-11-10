@@ -5,7 +5,7 @@ const ErrorList = ({ errors }) => (
   <ul className="error-list">
     {
       map(error =>
-        <li>
+        <li key={error}>
           <span className="error">
             {error}
           </span>
