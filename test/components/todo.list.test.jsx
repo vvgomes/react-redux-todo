@@ -11,7 +11,7 @@ describe("TodoList", () => {
     { id: "2", text: "walk the dog", completed: false }
   ];
 
-  it("renders items", () => {
+  it("renders todo items", () => {
     const todoList = shallow(<TodoList todos={todos} toggle={identity} />);
     expect(todoList.find(TodoItem)).lengthOf(2);
   });
