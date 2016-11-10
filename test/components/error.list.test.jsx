@@ -1,5 +1,6 @@
 import React from "react";
 import ErrorList from "../../src/components/error.list";
+import ErrorItem from "../../src/components/error.item";
 import { shallow } from "enzyme";
 import { expect } from "chai";
 import { map } from "ramda";
@@ -10,13 +11,8 @@ describe("ErrorList", () => {
     "Text description must be unique."
   ];
 
-  it("renders errors", () => {
+  it("renders error items", () => {
     const errorList = shallow(<ErrorList errors={errors} />);
-    const messages = map(e => e.text())(errorList.find(".error"))
-
-    expect(messages).deep.eq([
-      "Text description must be present.",
-      "Text description must be unique."
-    ]);
+    expect(errorList.find(ErrorItem)).lengthOf(2);
   });
 });

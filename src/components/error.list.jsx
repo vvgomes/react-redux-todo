@@ -1,15 +1,15 @@
 import React from "react";
+import ErrorItem from "./error.item";
 import { map } from "ramda";
 
 const ErrorList = ({ errors }) => (
   <ul className="error-list">
     {
       map(error =>
-        <li key={error}>
-          <span className="error">
-            {error}
-          </span>
-        </li>
+        <ErrorItem
+          key={error}
+          error={error}
+        />
       )(errors)
     }
   </ul>
