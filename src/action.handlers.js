@@ -3,7 +3,7 @@ import { evolve, always, identity } from "ramda";
 export const presentTodos = (state, action) =>
   evolve({
     todos: always(action.todos),
-    errors: identity
+    errors: always([]) 
   })(state);
 
 export const presentErrors = (state, action) =>

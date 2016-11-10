@@ -3,7 +3,9 @@ import { expect } from "chai";
 
 describe("actionHandlers{}", () => {
   const state = {
-    errors: [],
+    errors: [
+      "Error occurred previously."
+    ],
     todos: [
       {
         id: "1",
