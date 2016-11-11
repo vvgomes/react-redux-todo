@@ -1,23 +1,23 @@
 import defineThunks from "../src/action.thunks";
 import { expect } from "chai";
 import { stub } from "sinon";
-import { identity, assoc, __ } from "ramda";
+import { identity, always, assoc, __ } from "ramda";
 
 describe("actionThunks{}", () => {
-
   const apiClient = {
     addTodo: stub(),
     toggleTodo: stub(),
     fetchState: stub()
   };
 
-  const actions = {
+  const actionCreators = {
     presentTodos: assoc("todos", __, { type: "presentTodos" }),
-    presentErrors: assoc("errors", __, { type: "presentErrors" })
+    presentErrors: assoc("errors", __, { type: "presentErrors" }),
+    dismissErrors: always({ type: "dismissErrors" })
   };
 
   let thunks;
-  beforeEach(() => thunks = defineThunks(apiClient, actions));
+  beforeEach(() => thunks = defineThunks(actionCreators, apiClient));
 
   const dispatch = identity();
 
@@ -86,6 +86,13 @@ describe("actionThunks{}", () => {
       return thunks.reloadTodos()(dispatch).then(action => {
         expect(action).deep.eq({ type: "presentErrors", errors: [ "Error." ] });
       });
+    });
+  });
+
+  describe("dismissErrors()", () => {
+    it("dispatches dismissErrors action", () => {
+      const action = thunks.dismissErrors()(dispatch);
+      expect(action).deep.eq({ type: "dismissErrors" });
     });
   });
 });

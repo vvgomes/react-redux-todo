@@ -5,23 +5,21 @@ import NewTodo from "../../src/components/new.todo";
 import ErrorList from "../../src/components/error.list";
 import { shallow } from "enzyme";
 import { expect } from "chai";
-import { identity } from "ramda";
+import { identity, set, lensProp } from "ramda";
 
 describe("App", () => {
   const state = {
+    errors: [],
     todos: [
       { id: "1", text:"wash dishes", completed: true },
       { id: "2", text: "walk the dog", completed: false }
-    ],
-    errors: [
-      "Text description must be present.",
-      "Text description must be unique."
     ]
   };
 
   const actions = {
     addTodo: identity,
-    toggleTodo: identity
+    toggleTodo: identity,
+    dismissErrors: identity
   };
 
   it("renders todo list", () => {
@@ -40,11 +38,25 @@ describe("App", () => {
     expect(newTodo.prop("add")).eq(actions.addTodo);
   });
 
-  it("renders error list", () => {
+  it("does not render error list when there are no errors", () => {
     const app = shallow(<App state={state} actions={actions} />);
     const errorList = app.find(".app").find(ErrorList) ;
 
+    expect(errorList).lengthOf(0);
+  });
+
+  it("renders error list when there are errors", () => {
+    const errors = [
+      "Text description must be present.",
+      "Text description must be unique."
+    ];
+
+    const stateWithErrors = set(lensProp("errors"), errors, state);
+    const app = shallow(<App state={stateWithErrors} actions={actions} />);
+    const errorList = app.find(".app").find(ErrorList) ;
+
     expect(errorList).lengthOf(1);
-    expect(errorList.prop("errors")).eq(state.errors);
+    expect(errorList.prop("errors")).eq(errors);
+    expect(errorList.prop("dismiss")).eq(actions.dismissErrors);
   });
 });

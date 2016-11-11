@@ -4,8 +4,8 @@ import { createStore, applyMiddleware } from "redux";
 import { defineReducer } from "redux-definer";
 import { connect, Provider } from "react-redux";
 import thunkMiddleware from "redux-thunk";
-import defineThunks from "./action.thunks";
 import * as handlers from "./action.handlers";
+import defineThunks from "./action.thunks";
 import App from "./components/app";
 import { map, compose } from "ramda";
 

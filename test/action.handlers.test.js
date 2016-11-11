@@ -1,11 +1,9 @@
-import { presentTodos, presentErrors } from "../src/action.handlers";
+import { presentTodos, presentErrors, dismissErrors } from "../src/action.handlers";
 import { expect } from "chai";
 
 describe("actionHandlers{}", () => {
   const state = {
-    errors: [
-      "Error occurred previously."
-    ],
+    errors: ["Error occurred previously."],
     todos: [
       {
         id: "1",
@@ -59,6 +57,25 @@ describe("actionHandlers{}", () => {
         ]
       });
     });
+  });
 
+  describe("dismissErrors()", () => {
+    it("clears the list of errors", () => {
+      const action = {
+        type: "dismissErrors"
+      };
+
+      const newState = dismissErrors(state, action);
+
+      expect(newState).deep.eq({
+        errors: [],
+        todos: [
+          {
+            id: "1",
+            text: "wash dishes"
+          }
+        ]
+      });
+    });
   });
 });

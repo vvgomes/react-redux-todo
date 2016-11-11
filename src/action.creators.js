@@ -6,3 +6,7 @@ export const presentErrors = errors => (
   { type: "presentErrors", errors }
 );
 
+export const dismissErrors = () => (
+  { type: "dismissErrors" }
+);
+

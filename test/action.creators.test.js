@@ -1,4 +1,4 @@
-import { presentTodos, presentErrors } from "../src/action.creators";
+import { presentTodos, presentErrors, dismissErrors } from "../src/action.creators";
 import { expect } from "chai";
 
 describe("actionCreators{}", () => {
@@ -23,6 +23,14 @@ describe("actionCreators{}", () => {
 
     it("has a list of errors", () => {
       expect(action.errors).deep.eq(["Unable to connect to server."]);
+    });
+  });
+
+  describe("dismissErrors()", () => {
+    const action = dismissErrors();
+
+    it("has action type", () => {
+      expect(action.type).eq("dismissErrors");
     });
   });
 });

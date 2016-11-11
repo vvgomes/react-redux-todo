@@ -11,3 +11,9 @@ export const presentErrors = (state, action) =>
     todos: identity,
     errors: always(action.errors)
   })(state);
+
+export const dismissErrors = (state, action) =>
+  evolve({
+    todos: identity,
+    errors: always([])
+  })(state);
