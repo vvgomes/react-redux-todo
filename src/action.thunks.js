@@ -1,18 +1,20 @@
 import createApiClient from "./api.client";
 import * as defaultActions from "./action.creators";
-import { prop } from "ramda";
+import { prop, pipe } from "ramda";
 
 const defineThunks = (
   actions = defaultActions,
   apiClient = createApiClient()
 ) => {
+  const handleTodos = pipe(prop("todos"), actions.presentTodos);
+  const handleErrors = pipe(prop("errors"), actions.presentErrors);
+
   const reloadTodos = () =>
     (dispatch, getState) =>
       apiClient
         .fetchState()
-        .then(prop("todos"))
-        .then(actions.presentTodos)
-        .catch(actions.presentErrors)
+        .then(handleTodos)
+        .catch(handleErrors)
         .then(dispatch);
 
   const addTodo = todo =>
@@ -20,7 +22,7 @@ const defineThunks = (
       apiClient
         .addTodo(todo)
         .then(reloadTodos)
-        .catch(actions.presentErrors)
+        .catch(handleErrors)
         .then(dispatch);
 
   const toggleTodo = todo =>
@@ -28,7 +30,7 @@ const defineThunks = (
       apiClient
         .toggleTodo(todo)
         .then(reloadTodos)
-        .catch(actions.presentErrors)
+        .catch(handleErrors)
         .then(dispatch);
 
   const dismissErrors = () =>
