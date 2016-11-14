@@ -16,6 +16,5 @@
 ✓ Extract error item component. (to make dismiss simpler.)
 ✓ Dismiss errors.
 ✓ Add errors key to the errors API response.
-- Compose components.
 - Extract store.
 - Add some style to the thing.
